@@ -27,4 +27,6 @@ export interface ProblemDetails {
   detail: string;
   code: ErrorCode;
   requestId: string;
+  /** Present on UNSUPPORTED_INSTRUMENT, so the UI can name what was rejected. */
+  instrumentType?: string;
 }

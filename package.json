@@ -19,7 +19,10 @@
     "typecheck": "npm run typecheck --workspaces",
     "test": "npm run test --workspaces",
     "build": "npm run build --workspaces --if-present",
-    "capture": "node scripts/capture.mjs"
+    "start": "npm run start -w @isv/backend",
+    "dev": "npm run dev -w @isv/backend",
+    "capture": "node scripts/capture.mjs",
+    "smoke:live": "node scripts/smoke-live.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
