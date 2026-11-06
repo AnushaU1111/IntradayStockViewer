@@ -18,7 +18,8 @@
     "format:check": "prettier --check .",
     "typecheck": "npm run typecheck --workspaces",
     "test": "npm run test --workspaces",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "capture": "node scripts/capture.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
