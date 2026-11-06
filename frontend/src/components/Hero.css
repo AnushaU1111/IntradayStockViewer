@@ -1,0 +1,114 @@
+.hero {
+  position: relative;
+  min-height: max(100svh, 700px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 96px clamp(16px, 4vw, 40px) 120px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-horizon {
+  position: absolute;
+  left: 50%;
+  bottom: -62vh;
+  width: 150vw;
+  height: 90vh;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  z-index: -2;
+  background: radial-gradient(
+    closest-side,
+    rgb(255 138 61 / 50%),
+    rgb(255 90 31 / 20%) 45%,
+    rgb(255 90 31 / 0%) 72%
+  );
+  filter: blur(8px);
+  animation: breathe 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes breathe {
+  50% {
+    opacity: 0.78;
+    transform: translateX(-50%) scale(1.03);
+  }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--gold);
+  border: 1px solid rgb(255 198 110 / 25%);
+  background: rgb(255 198 110 / 6%);
+  border-radius: 20px;
+  padding: 6px 14px;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: clamp(44px, 7.4vw, 104px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  max-width: 12ch;
+}
+
+.hero h1 .lit {
+  background: linear-gradient(100deg, var(--gold) 10%, var(--flame) 45%, var(--ember) 80%);
+  background-size: 200% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s ease-in-out infinite;
+}
+
+@keyframes shine {
+  50% {
+    background-position: 100% 0;
+  }
+}
+
+.hero-sub {
+  margin: 24px 0 40px;
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--muted);
+  max-width: 52ch;
+  line-height: 1.45;
+}
+
+.rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: rise 0.9s var(--ease-out) forwards;
+}
+
+.rise.d1 {
+  animation-delay: 0.05s;
+}
+
+.rise.d2 {
+  animation-delay: 0.18s;
+}
+
+.rise.d3 {
+  animation-delay: 0.32s;
+}
+
+.rise.d4 {
+  animation-delay: 0.46s;
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-form {
+  width: min(620px, 100%);
+}

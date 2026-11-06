@@ -1,0 +1,50 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0 clamp(16px, 3vw, 40px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background 0.3s,
+    border-color 0.3s;
+}
+
+.nav[data-solid="true"] {
+  background: rgb(11 8 6 / 80%);
+  backdrop-filter: blur(14px);
+  border-color: var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50% 50% 50% 4px;
+  transform: rotate(-45deg);
+  background: radial-gradient(circle at 30% 30%, var(--gold), var(--ember) 70%);
+  box-shadow: 0 0 18px rgb(255 90 31 / 55%);
+  flex: none;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
