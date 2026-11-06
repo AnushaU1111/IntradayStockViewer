@@ -3,10 +3,12 @@
 Written in Python with Decimal so it shares no code, language or float behavior
 with the TypeScript implementation. Run with:
 
-    python -I scripts/golden.py
+    python scripts/golden.py
 
-Needs Python 3.9+. On Windows, first run `pip install tzdata`, because zoneinfo
-has no system timezone database there.
+Needs Python 3.10+. On Windows, first run `pip install tzdata`, because zoneinfo
+has no system timezone database there. Do not add -I: isolated mode skips the
+user site-packages, which is where pip installs tzdata by default. Output always
+uses LF line endings, so the files are byte-identical on every OS.
 
 Rules applied, in order (spec sections 3 and 4.3, DECISIONS D-50):
   1. Request window: the API asks Yahoo for period1 = clock - 35 days and
@@ -186,7 +188,7 @@ def main() -> int:
             "expected": expected,
         }
         out = OUT_DIR / f"golden.{name}.json"
-        out.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+        out.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8", newline="\n")
         print(f"{out.relative_to(ROOT)}: {counts}  X-Partial-Day={headers['X-Partial-Day']}")
     return 0
 
