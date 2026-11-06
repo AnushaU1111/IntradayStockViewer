@@ -42,6 +42,40 @@
   flex: none;
 }
 
+.nav-symbol {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  max-width: 46vw;
+  border-radius: 19px;
+  background: var(--raise);
+  border: 1px solid var(--line);
+  padding: 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  animation: nav-in 0.3s var(--ease-out);
+}
+
+.nav-symbol b {
+  color: var(--text);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-symbol:hover {
+  border-color: var(--flame);
+}
+
+@keyframes nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
 .nav-actions {
   display: flex;
   align-items: center;

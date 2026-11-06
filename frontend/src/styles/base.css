@@ -108,3 +108,7 @@ input {
 .results:empty {
   padding: 0;
 }
+
+.results:not(:empty) {
+  min-height: 100svh;
+}

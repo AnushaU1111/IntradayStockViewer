@@ -3,7 +3,15 @@ import type { ReactNode } from "react";
 import "./Hero.css";
 
 /** The landing area: headline, the search form and the decorative backdrop. */
-export function Hero({ children, backdrop }: { children: ReactNode; backdrop?: ReactNode }) {
+export function Hero({
+  children,
+  backdrop,
+  showCue,
+}: {
+  children: ReactNode;
+  backdrop?: ReactNode;
+  showCue?: boolean;
+}) {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       {backdrop}
@@ -17,6 +25,7 @@ export function Hero({ children, backdrop }: { children: ReactNode; backdrop?: R
         trading day.
       </p>
       <div className="hero-form rise d4">{children}</div>
+      {showCue === true && <div className="scroll-cue" aria-hidden="true" />}
     </section>
   );
 }

@@ -25,6 +25,8 @@ describe("results", () => {
     expect(about).toHaveTextContent("Nov 2 – Nov 5");
     expect(about).toHaveTextContent("4 trading days");
     expect(screen.getByText("USD", { selector: ".currency" })).toBeInTheDocument();
+    // The headline value rolls up visually; assistive technology gets the real value at once.
+    expect(screen.getByText("350.2986", { selector: ".sr-only" })).toBeInTheDocument();
   });
 
   it("omits the currency and timezone when their headers are absent", async () => {

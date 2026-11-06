@@ -1,4 +1,5 @@
 import type { DailySummaryResult } from "../api/client";
+import { useCountUp } from "../hooks/useCountUp";
 import { formatDayShort, formatPrice, formatRange, zoneCity } from "../lib/format";
 
 import "./Results.css";
@@ -7,6 +8,7 @@ export function ResultsHeader({ result }: { result: DailySummaryResult }) {
   const { symbol, days, currency, timeZone, partialDay } = result;
   const first = days[0];
   const last = days.at(-1);
+  const shown = useCountUp(last?.highAverage ?? 0);
   if (!first || !last) return null;
   const lastIsPartial = partialDay === last.day;
 
@@ -36,7 +38,10 @@ export function ResultsHeader({ result }: { result: DailySummaryResult }) {
           Avg high · {formatDayShort(last.day)}
           {lastIsPartial ? " so far" : ""}
         </p>
-        <p className="latest-value num">{formatPrice(last.highAverage)}</p>
+        <p className="latest-value num">
+          <span aria-hidden="true">{formatPrice(shown)}</span>
+          <span className="sr-only">{formatPrice(last.highAverage)}</span>
+        </p>
       </div>
     </div>
   );

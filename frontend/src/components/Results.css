@@ -243,3 +243,14 @@
     padding-inline: 14px;
   }
 }
+
+@media (width <= 640px) {
+  .meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta li + li::before {
+    display: none;
+  }
+}
