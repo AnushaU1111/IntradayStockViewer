@@ -49,6 +49,16 @@ describe("getDailySummary", () => {
     expect(result).toMatchObject({ days: [], currency: null, partialDay: null, timeZone: null });
   });
 
+  it("reads empty X- headers as absent", async () => {
+    server.use(
+      http.get(URL, () =>
+        HttpResponse.json([], { headers: { "X-Currency": " ", "X-Partial-Day": "" } }),
+      ),
+    );
+    const result = await getDailySummary("TSLA", new AbortController().signal);
+    expect(result).toMatchObject({ currency: null, partialDay: null });
+  });
+
   it("encodes the symbol into the path", async () => {
     let seen = "";
     server.use(

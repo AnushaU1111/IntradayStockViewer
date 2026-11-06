@@ -6,6 +6,8 @@ import type { DailySummaryResult } from "./api/client";
 import { useDailySummary } from "./api/useDailySummary";
 import { Hero } from "./components/Hero";
 import { LiveRegion } from "./components/LiveRegion";
+import { ResultsHeader } from "./components/ResultsHeader";
+import { ResultsTable } from "./components/ResultsTable";
 import { Nav } from "./components/Nav";
 import { EmptyPanel, ErrorPanel, LoadingSkeleton } from "./components/StatusPanel";
 import { SymbolForm } from "./components/SymbolForm";
@@ -123,7 +125,17 @@ export function App() {
               onRetry={retry}
             />
           )}
-          {view.kind === "success" && <p>{view.result.days.length} trading days</p>}
+          {view.kind === "success" && (
+            <>
+              <ResultsHeader result={view.result} />
+              <ResultsTable
+                symbol={view.result.symbol}
+                days={view.result.days}
+                currency={view.result.currency}
+                partialDay={view.result.partialDay}
+              />
+            </>
+          )}
         </section>
       </main>
       <LiveRegion message={announce(view, fieldError)} />

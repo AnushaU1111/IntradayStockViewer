@@ -89,11 +89,17 @@ async function parse(symbol: string, res: Response): Promise<DailySummaryResult>
   return {
     symbol,
     days: body,
-    timeZone: res.headers.get(HEADERS.exchangeTimezone),
-    currency: res.headers.get(HEADERS.currency),
-    partialDay: res.headers.get(HEADERS.partialDay),
-    requestId: res.headers.get(HEADERS.requestId),
+    timeZone: header(res, HEADERS.exchangeTimezone),
+    currency: header(res, HEADERS.currency),
+    partialDay: header(res, HEADERS.partialDay),
+    requestId: header(res, HEADERS.requestId),
   };
+}
+
+/** An empty header carries no information, so it reads the same as an absent one. */
+function header(res: Response, name: string): string | null {
+  const value = res.headers.get(name)?.trim();
+  return value === undefined || value === "" ? null : value;
 }
 
 async function readProblem(res: Response): Promise<HttpErrorInfo> {
