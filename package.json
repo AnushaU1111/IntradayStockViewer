@@ -16,8 +16,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "npm run typecheck --workspaces",
+    "typecheck": "npm run typecheck --workspaces && tsc -p e2e/tsconfig.json",
     "test": "npm run test --workspaces",
+    "test:e2e": "node e2e/run.mjs",
     "build": "npm run build --workspaces --if-present",
     "start": "npm run start -w @isv/backend",
     "dev": "node scripts/dev.mjs",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^24.19.2",
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
