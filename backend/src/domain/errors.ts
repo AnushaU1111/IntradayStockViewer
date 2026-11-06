@@ -30,19 +30,20 @@ export class IntradayUnavailable extends DomainError {
   }
 }
 
+/** `retryAfterSeconds` is null when the provider sent no usable Retry-After. */
 export class ProviderRateLimited extends DomainError {
   readonly code = "UPSTREAM_RATE_LIMITED";
 
-  constructor(readonly retryAfterSeconds: number) {
-    super(`provider rate limited; retry after ${retryAfterSeconds}s`);
+  constructor(readonly retryAfterSeconds: number | null) {
+    super(`provider rate limited (retry after ${String(retryAfterSeconds)}s)`);
   }
 }
 
 export class ProviderBlocked extends DomainError {
   readonly code = "UPSTREAM_BLOCKED";
 
-  constructor(readonly retryAfterSeconds: number) {
-    super(`provider refused access; retry after ${retryAfterSeconds}s`);
+  constructor(readonly retryAfterSeconds: number | null) {
+    super(`provider refused access (retry after ${String(retryAfterSeconds)}s)`);
   }
 }
 
@@ -50,8 +51,16 @@ export class ProviderRejected extends DomainError {
   readonly code = "UPSTREAM_REJECTED";
 }
 
+/** `retryAfterSeconds` is set when the upstream guard is cooling down after failures. */
 export class ProviderUnavailable extends DomainError {
   readonly code = "UPSTREAM_UNAVAILABLE";
+
+  constructor(
+    message: string,
+    readonly retryAfterSeconds: number | null = null,
+  ) {
+    super(message);
+  }
 }
 
 export class ProviderTimeout extends DomainError {
