@@ -8,3 +8,6 @@ fixtures-raw/
 Claude outputs/
 DECISIONS.md
 PROMPT_LOG.md
+
+# Generated test data: kept exactly as captured or generated
+backend/test/fixtures/

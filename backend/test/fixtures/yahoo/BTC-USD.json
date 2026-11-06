@@ -1,0 +1,534 @@
+{
+  "capture": {
+    "symbol": "BTC-USD",
+    "capturedAt": "2026-11-06T00:54:10.000Z",
+    "userAgentSent": true,
+    "request": {
+      "path": "/v8/finance/chart/BTC-USD",
+      "query": {
+        "interval": "15m",
+        "period1": "1790902450",
+        "period2": "1793926450",
+        "includePrePost": "false"
+      }
+    },
+    "trimmed": {
+      "period1": 1793908800,
+      "period2": 1793926800,
+      "by": "scripts/trim-fixture.mjs"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json;charset=utf-8"
+    },
+    "body": {
+      "chart": {
+        "result": [
+          {
+            "meta": {
+              "currency": "USD",
+              "symbol": "BTC-USD",
+              "exchangeName": "CCC",
+              "fullExchangeName": "CCC",
+              "instrumentType": "CRYPTOCURRENCY",
+              "firstTradeDate": 1410912000,
+              "regularMarketTime": 1793926444,
+              "hasPrePostMarketData": false,
+              "gmtoffset": 0,
+              "timezone": "UTC",
+              "exchangeTimezoneName": "UTC",
+              "regularMarketPrice": 76231.95,
+              "regularMarketChangePercent": -5.263,
+              "fulldayPrice": 76231.95,
+              "fulldayChange": -4235.18,
+              "fulldayChangePercent": -5.263,
+              "fiftyTwoWeekHigh": 107428.26,
+              "fiftyTwoWeekLow": 57747.766,
+              "regularMarketDayHigh": 76282.4,
+              "regularMarketDayLow": 75982.81,
+              "regularMarketVolume": 48617390080,
+              "longName": "Bitcoin USD",
+              "shortName": "Bitcoin USD",
+              "chartPreviousClose": 84497.21,
+              "previousClose": 75982.81,
+              "scale": 3,
+              "priceHint": 2,
+              "currentTradingPeriod": {
+                "pre": {
+                  "timezone": "UTC",
+                  "start": 1793923200,
+                  "end": 1793923200,
+                  "gmtoffset": 0
+                },
+                "regular": {
+                  "timezone": "UTC",
+                  "start": 1793923200,
+                  "end": 1794009540,
+                  "gmtoffset": 0
+                },
+                "post": {
+                  "timezone": "UTC",
+                  "start": 1794009540,
+                  "end": 1794009540,
+                  "gmtoffset": 0
+                }
+              },
+              "tradingPeriods": [
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1790899200,
+                    "end": 1790985540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1790985600,
+                    "end": 1791071940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791072000,
+                    "end": 1791158340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791158400,
+                    "end": 1791244740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791244800,
+                    "end": 1791331140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791331200,
+                    "end": 1791417540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791417600,
+                    "end": 1791503940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791504000,
+                    "end": 1791590340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791590400,
+                    "end": 1791676740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791676800,
+                    "end": 1791763140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791763200,
+                    "end": 1791849540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791849600,
+                    "end": 1791935940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1791936000,
+                    "end": 1792022340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792022400,
+                    "end": 1792108740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792108800,
+                    "end": 1792195140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792195200,
+                    "end": 1792281540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792281600,
+                    "end": 1792367940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792368000,
+                    "end": 1792454340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792454400,
+                    "end": 1792540740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792540800,
+                    "end": 1792627140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792627200,
+                    "end": 1792713540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792713600,
+                    "end": 1792799940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792800000,
+                    "end": 1792886340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792886400,
+                    "end": 1792972740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1792972800,
+                    "end": 1793059140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793059200,
+                    "end": 1793145540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793145600,
+                    "end": 1793231940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793232000,
+                    "end": 1793318340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793318400,
+                    "end": 1793404740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793404800,
+                    "end": 1793491140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793491200,
+                    "end": 1793577540,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793577600,
+                    "end": 1793663940,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793664000,
+                    "end": 1793750340,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793750400,
+                    "end": 1793836740,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793836800,
+                    "end": 1793923140,
+                    "gmtoffset": 0
+                  }
+                ],
+                [
+                  {
+                    "timezone": "UTC",
+                    "start": 1793923200,
+                    "end": 1794009540,
+                    "gmtoffset": 0
+                  }
+                ]
+              ],
+              "dataGranularity": "15m",
+              "range": "",
+              "validRanges": [
+                "1d",
+                "5d",
+                "1mo",
+                "3mo",
+                "6mo",
+                "1y",
+                "2y",
+                "5y",
+                "10y",
+                "ytd",
+                "max"
+              ]
+            },
+            "timestamp": [
+              1793908800,
+              1793909700,
+              1793910600,
+              1793911500,
+              1793912400,
+              1793913300,
+              1793914200,
+              1793915100,
+              1793916000,
+              1793916900,
+              1793917800,
+              1793918700,
+              1793919600,
+              1793920500,
+              1793921400,
+              1793922300,
+              1793923200,
+              1793924100,
+              1793925000,
+              1793925900,
+              1793926444
+            ],
+            "indicators": {
+              "quote": [
+                {
+                  "low": [
+                    75855.5,
+                    75788.890625,
+                    75781.921875,
+                    75962.6484375,
+                    75742.09375,
+                    75629.7734375,
+                    75781.84375,
+                    75633.4296875,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    75936.359375,
+                    75963.25,
+                    76039.7578125,
+                    76083.421875,
+                    76231.953125
+                  ],
+                  "close": [
+                    75958.0078125,
+                    75924.921875,
+                    76038.3671875,
+                    76085.046875,
+                    75902.40625,
+                    75846.5078125,
+                    75792.5078125,
+                    75653.453125,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    76005.8125,
+                    76083.921875,
+                    76276.28125,
+                    76226.75,
+                    76231.953125
+                  ],
+                  "high": [
+                    76208.5234375,
+                    75990.421875,
+                    76122.03125,
+                    76263.5078125,
+                    76075.3515625,
+                    75923.3671875,
+                    76013.5,
+                    75876.7109375,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    76201.828125,
+                    76165.3125,
+                    76278.0390625,
+                    76277.921875,
+                    76231.953125
+                  ],
+                  "volume": [
+                    0,
+                    948711424,
+                    153063424,
+                    62640128,
+                    602050560,
+                    897044480,
+                    324964352,
+                    35786752,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    740536320,
+                    432586752,
+                    304746496,
+                    213540864,
+                    0
+                  ],
+                  "open": [
+                    76200.640625,
+                    75959.0703125,
+                    75921.8984375,
+                    76069.2578125,
+                    76045.8984375,
+                    75881.921875,
+                    75860.9375,
+                    75789.09375,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    75981.859375,
+                    76010.5703125,
+                    76065.6484375,
+                    76277.921875,
+                    76231.953125
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "error": null
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "capture": {
+    "symbol": "ZZZZNOTREAL1",
+    "capturedAt": "2026-11-06T00:54:13.000Z",
+    "userAgentSent": true,
+    "request": {
+      "path": "/v8/finance/chart/ZZZZNOTREAL1",
+      "query": {
+        "interval": "15m",
+        "period1": "1790902453",
+        "period2": "1793926453",
+        "includePrePost": "false"
+      }
+    }
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "content-type": "application/json;charset=utf-8"
+    },
+    "body": {
+      "chart": {
+        "result": null,
+        "error": {
+          "code": "Not Found",
+          "description": "No data found, symbol may be delisted"
+        }
+      }
+    }
+  }
+}
