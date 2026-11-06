@@ -6,8 +6,7 @@ import type { DailySummaryResult } from "./api/client";
 import { useDailySummary } from "./api/useDailySummary";
 import { Hero } from "./components/Hero";
 import { LiveRegion } from "./components/LiveRegion";
-import { ResultsHeader } from "./components/ResultsHeader";
-import { ResultsTable } from "./components/ResultsTable";
+import { Results } from "./components/Results";
 import { Nav } from "./components/Nav";
 import { EmptyPanel, ErrorPanel, LoadingSkeleton } from "./components/StatusPanel";
 import { SymbolForm } from "./components/SymbolForm";
@@ -126,15 +125,10 @@ export function App() {
             />
           )}
           {view.kind === "success" && (
-            <>
-              <ResultsHeader result={view.result} />
-              <ResultsTable
-                symbol={view.result.symbol}
-                days={view.result.days}
-                currency={view.result.currency}
-                partialDay={view.result.partialDay}
-              />
-            </>
+            <Results
+              key={`${view.result.symbol}:${view.result.days.length}`}
+              result={view.result}
+            />
           )}
         </section>
       </main>
