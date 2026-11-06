@@ -12,11 +12,12 @@ const tasks = [
 const children = tasks.map(({ name, color, args }) => {
   // On POSIX each task gets its own process group, so stopping it also stops
   // the vite and tsx processes that npm starts underneath.
-  const child = spawn("npm", args, {
-    shell: isWindows,
-    detached: !isWindows,
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  // Windows needs a shell to find npm.cmd; the command is one string there,
+  // since Node deprecates an argument list with `shell: true` (DEP0190).
+  const stdio = ["ignore", "pipe", "pipe"];
+  const child = isWindows
+    ? spawn(["npm", ...args].join(" "), { shell: true, stdio })
+    : spawn("npm", args, { detached: true, stdio });
   const prefix = `\x1b[${color}m[${name}]\x1b[0m `;
   const pipe = (stream, out) => {
     let buffered = "";
