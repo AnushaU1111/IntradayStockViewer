@@ -1,0 +1,168 @@
+{
+  "scenario": "in-session",
+  "clock": "2026-11-05T18:00:00Z",
+  "fixture": "backend/test/fixtures/yahoo/TSLA.json",
+  "generatedBy": "scripts/golden.py",
+  "counts": {
+    "fixtureBars": 651,
+    "inRequestWindow": 638,
+    "inRegularSession": 638,
+    "unusable": 0,
+    "days": 24,
+    "window": {
+      "from": "2026-10-05",
+      "to": "2026-11-05"
+    }
+  },
+  "expectedHeaders": {
+    "X-Exchange-Timezone": "America/New_York",
+    "X-Currency": "USD",
+    "X-Partial-Day": "2026-11-05"
+  },
+  "expected": [
+    {
+      "day": "2026-10-05",
+      "lowAverage": 377.1021,
+      "highAverage": 379.0819,
+      "volume": 36544207
+    },
+    {
+      "day": "2026-10-06",
+      "lowAverage": 379.9138,
+      "highAverage": 381.121,
+      "volume": 24633551
+    },
+    {
+      "day": "2026-10-07",
+      "lowAverage": 375.8312,
+      "highAverage": 377.1136,
+      "volume": 23234953
+    },
+    {
+      "day": "2026-10-08",
+      "lowAverage": 371.4284,
+      "highAverage": 372.9249,
+      "volume": 22329809
+    },
+    {
+      "day": "2026-10-09",
+      "lowAverage": 383.0768,
+      "highAverage": 384.9723,
+      "volume": 36336060
+    },
+    {
+      "day": "2026-10-12",
+      "lowAverage": 378.7496,
+      "highAverage": 379.8398,
+      "volume": 17558067
+    },
+    {
+      "day": "2026-10-13",
+      "lowAverage": 374.4611,
+      "highAverage": 375.5825,
+      "volume": 21744117
+    },
+    {
+      "day": "2026-10-14",
+      "lowAverage": 365.4382,
+      "highAverage": 367.067,
+      "volume": 38896670
+    },
+    {
+      "day": "2026-10-15",
+      "lowAverage": 359.8496,
+      "highAverage": 361.5712,
+      "volume": 24200918
+    },
+    {
+      "day": "2026-10-16",
+      "lowAverage": 355.8682,
+      "highAverage": 358.6986,
+      "volume": 57478535
+    },
+    {
+      "day": "2026-10-19",
+      "lowAverage": 366.0036,
+      "highAverage": 367.9353,
+      "volume": 34487685
+    },
+    {
+      "day": "2026-10-20",
+      "lowAverage": 373.0985,
+      "highAverage": 374.9545,
+      "volume": 27467645
+    },
+    {
+      "day": "2026-10-21",
+      "lowAverage": 385.3632,
+      "highAverage": 387.2875,
+      "volume": 37324725
+    },
+    {
+      "day": "2026-10-22",
+      "lowAverage": 379.0523,
+      "highAverage": 382.121,
+      "volume": 77371685
+    },
+    {
+      "day": "2026-10-23",
+      "lowAverage": 370.9658,
+      "highAverage": 373.3877,
+      "volume": 48688397
+    },
+    {
+      "day": "2026-10-26",
+      "lowAverage": 393.2774,
+      "highAverage": 395.6003,
+      "volume": 47345460
+    },
+    {
+      "day": "2026-10-27",
+      "lowAverage": 404.2749,
+      "highAverage": 405.9946,
+      "volume": 40572850
+    },
+    {
+      "day": "2026-10-28",
+      "lowAverage": 400.9721,
+      "highAverage": 402.8372,
+      "volume": 32265539
+    },
+    {
+      "day": "2026-10-29",
+      "lowAverage": 404.1083,
+      "highAverage": 405.7263,
+      "volume": 29888244
+    },
+    {
+      "day": "2026-10-30",
+      "lowAverage": 396.9835,
+      "highAverage": 399.4868,
+      "volume": 36859211
+    },
+    {
+      "day": "2026-11-02",
+      "lowAverage": 406.201,
+      "highAverage": 408.9048,
+      "volume": 39849689
+    },
+    {
+      "day": "2026-11-03",
+      "lowAverage": 398.4825,
+      "highAverage": 400.1821,
+      "volume": 32274494
+    },
+    {
+      "day": "2026-11-04",
+      "lowAverage": 385.5077,
+      "highAverage": 388.5708,
+      "volume": 58867385
+    },
+    {
+      "day": "2026-11-05",
+      "lowAverage": 344.522,
+      "highAverage": 350.2986,
+      "volume": 218450835
+    }
+  ]
+}
