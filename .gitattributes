@@ -1,0 +1,4 @@
+# Normalize line endings so Prettier and git agree on every OS.
+* text=auto eol=lf
+*.png binary
+*.ico binary

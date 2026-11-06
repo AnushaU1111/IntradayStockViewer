@@ -1,0 +1,14 @@
+{
+  "name": "@isv/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "React UI. Scaffolded with Vite in Phase 6; Phase 1 only wires it into the workspace.",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@isv/shared": "0.1.0"
+  }
+}

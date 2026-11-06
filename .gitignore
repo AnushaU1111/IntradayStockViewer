@@ -1,0 +1,25 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local environment (only the example is committed)
+.env
+.env.*
+!.env.example
+
+# Test output
+test-results/
+playwright-report/
+
+# Raw Yahoo captures with full headers stay local (see DECISIONS D-45)
+fixtures-raw/
+
+# Claude desktop app working folder
+Claude outputs/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log

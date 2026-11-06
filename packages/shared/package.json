@@ -1,0 +1,19 @@
+{
+  "name": "@isv/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Rules both the API and the UI must agree on: symbol validation, error codes, response types.",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  }
+}
