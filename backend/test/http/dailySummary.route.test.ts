@@ -68,18 +68,45 @@ describe("GET /api/v1/stocks/:symbol/daily-summary", () => {
   });
 
   describe("V3 and V4 invalid symbols never reach Yahoo", () => {
-    it.each(["../etc", "TSLA;DROP", "<script>", "T SLA", "tſla", "ıbm", "A".repeat(33), "%20"])(
-      "rejects %j with 400 INVALID_SYMBOL",
-      async (symbol) => {
-        const fetchFn = fakeYahoo();
-        const res = await get(symbol, { fetchFn });
+    it.each([
+      "../etc",
+      "TSLA;DROP",
+      "<script>",
+      "T SLA",
+      "tſla",
+      "ıbm",
+      "A".repeat(33),
+      "A".repeat(256),
+      "%20",
+    ])("rejects %j with 400 INVALID_SYMBOL", async (symbol) => {
+      const fetchFn = fakeYahoo();
+      const res = await get(symbol, { fetchFn });
 
-        expect(res.statusCode).toBe(400);
-        expect(res.headers["content-type"]).toMatch(/^application\/problem\+json/);
-        expect(res.json()).toMatchObject({ status: 400, code: "INVALID_SYMBOL" });
-        expect(fetchFn).not.toHaveBeenCalled();
-      },
-    );
+      expect(res.statusCode).toBe(400);
+      expect(res.headers["content-type"]).toMatch(/^application\/problem\+json/);
+      expect(res.json()).toMatchObject({ status: 400, code: "INVALID_SYMBOL" });
+      expect(fetchFn).not.toHaveBeenCalled();
+    });
+  });
+
+  it.each([
+    [
+      "a symbol over the 256-character route limit",
+      `/api/v1/stocks/${"A".repeat(257)}/daily-summary`,
+      414,
+    ],
+    ["a malformed percent-encoding", "/api/v1/stocks/%E0%A4%A/daily-summary", 400],
+  ])("answers %s with problem+json that does not echo the path", async (_label, url, status) => {
+    const fetchFn = fakeYahoo();
+    app = await testApp({ fetchFn });
+    const res = await app.inject({ method: "GET", url });
+
+    expect(res.statusCode).toBe(status);
+    expect(res.headers["content-type"]).toMatch(/^application\/problem\+json/);
+    expect(res.json()).toMatchObject({ type: "about:blank", status, code: "BAD_REQUEST" });
+    expect(res.body).not.toContain("AAAA");
+    expect(res.body).not.toContain("%E0");
+    expect(fetchFn).not.toHaveBeenCalled();
   });
 
   it("H1 returns 404 for an unknown symbol, cached for 30 s", async () => {

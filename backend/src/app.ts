@@ -8,7 +8,11 @@ import { HEADERS } from "@isv/shared";
 import Fastify, { type FastifyInstance } from "fastify";
 
 import type { AppConfig } from "./config/env.js";
-import { RateLimitExceeded, registerProblemHandlers } from "./http/problem.js";
+import {
+  frameworkErrorHandler,
+  RateLimitExceeded,
+  registerProblemHandlers,
+} from "./http/problem.js";
 import { stocksRoutes } from "./http/stocks.routes.js";
 import { createCachedProvider } from "./providers/cachedProvider.js";
 import { createUpstreamGuard } from "./providers/upstreamGuard.js";
@@ -31,12 +35,19 @@ function requestIdFor(req: IncomingMessage): string {
 
 /** Composition root: the only place that knows how the pieces fit together. */
 export async function buildApp({ config, fetchFn }: AppDeps): Promise<FastifyInstance> {
+  const problemOptions = { fallbackRetryAfterSeconds: config.upstreamCooldownSeconds };
   const app = Fastify({
     logger: { level: config.logLevel },
     trustProxy: config.trustProxy,
     requestIdHeader: false,
     genReqId: requestIdFor,
-    maxParamLength: 256,
+    // Under routerOptions: the top-level option still works in Fastify 5 but logs
+    // FSTDEP022 at startup. 256 lets symbols of 33 to 256 characters reach the
+    // route and get 400 INVALID_SYMBOL (DECISIONS D-54).
+    routerOptions: { maxParamLength: 256 },
+    // Router rejections (a malformed URL, a parameter over the limit) skip the error
+    // handler, so without this they get Fastify's plain JSON echoing the path.
+    frameworkErrors: frameworkErrorHandler(problemOptions),
   });
 
   const fixedAt = config.clockFixedAt;
@@ -63,8 +74,6 @@ export async function buildApp({ config, fetchFn }: AppDeps): Promise<FastifyIns
     clock,
   });
   const service = createDailySummaryService({ provider: cache, clock, logger: app.log });
-  const problemOptions = { fallbackRetryAfterSeconds: config.upstreamCooldownSeconds };
-
   app.addHook("onRequest", (request, reply, done) => {
     reply.header(HEADERS.requestId, request.id);
     done();

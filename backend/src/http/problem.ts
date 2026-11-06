@@ -161,6 +161,29 @@ const statusOf = (error: unknown): number | null => {
   return typeof error.statusCode === "number" ? error.statusCode : null;
 };
 
+/**
+ * For Fastify's `frameworkErrors` option: the router's own rejections, such as
+ * FST_ERR_BAD_URL (400) and FST_ERR_MAX_PARAM_LENGTH (414), become problem+json
+ * with their status kept and none of the request path in the body.
+ */
+export function frameworkErrorHandler(options: ProblemOptions) {
+  return (error: unknown, request: FastifyRequest, reply: FastifyReply): void => {
+    const status = statusOf(error) ?? 400;
+    request.log.info({ code: codeOf(error), status }, "rejected malformed request");
+    void sendProblem(
+      request,
+      reply,
+      { code: "BAD_REQUEST", status, detail: "The request was malformed." },
+      options,
+    );
+  };
+}
+
+const codeOf = (error: unknown): string | null =>
+  typeof error === "object" && error !== null && "code" in error && typeof error.code === "string"
+    ? error.code
+    : null;
+
 /** Makes every non-2xx response problem+json, including Fastify's own (H10). */
 export function registerProblemHandlers(app: FastifyInstance, options: ProblemOptions): void {
   app.setNotFoundHandler((request, reply) =>
