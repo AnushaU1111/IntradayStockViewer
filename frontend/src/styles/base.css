@@ -97,3 +97,14 @@ input {
     transition-delay: 0ms !important;
   }
 }
+
+.results {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px clamp(16px, 3vw, 40px) 96px;
+  scroll-margin-top: 0;
+}
+
+.results:empty {
+  padding: 0;
+}

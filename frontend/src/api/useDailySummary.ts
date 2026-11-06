@@ -1,7 +1,7 @@
 import { skipToken, useQuery } from "@tanstack/react-query";
 
-import { getDailySummary } from "./client";
-import type { ApiError, DailySummaryResult } from "./client";
+import { ApiError, getDailySummary } from "./client";
+import type { DailySummaryResult } from "./client";
 
 export const dailySummaryKey = (symbol: string) => ["daily-summary", symbol] as const;
 
@@ -17,6 +17,14 @@ interface Options {
  * observer, and TanStack Query aborts its fetch through the signal, so a slow
  * older response can never replace a newer one.
  */
+/**
+ * The retry policy (spec 5.3): only a network failure is retried, once.
+ * Timeouts, bad responses and every HTTP error are shown as they are.
+ */
+export function shouldRetry(failureCount: number, error: unknown): boolean {
+  return failureCount < 1 && error instanceof ApiError && error.kind === "network";
+}
+
 export function useDailySummary(symbol: string | null, { enabled, onFailure }: Options) {
   return useQuery<DailySummaryResult, ApiError>({
     queryKey: symbol === null ? ["daily-summary"] : dailySummaryKey(symbol),
@@ -31,5 +39,7 @@ export function useDailySummary(symbol: string | null, { enabled, onFailure }: O
             }
           }
         : skipToken,
+    retry: shouldRetry,
+    retryDelay: 300,
   });
 }
