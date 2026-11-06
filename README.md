@@ -19,12 +19,18 @@ GET /api/v1/stocks/TSLA/daily-summary
 
 ## Run it
 
-Requires Node 24 (`.nvmrc` pins 24.14.1).
+**Prerequisites:** [Git](https://git-scm.com/downloads) and [Node.js 24](https://nodejs.org/) (`.nvmrc` pins 24.14.1; npm comes with Node). With nvm, run `nvm install` in the repo folder.
 
 ```bash
+git clone https://github.com/AnushaU1111/IntradayStockViewer.git
+cd IntradayStockViewer
 npm ci
 npm run dev
 ```
+
+Open http://localhost:5173. `npm run dev` starts the API on port 3001 and the Vite dev server on 5173, which proxies `/api` to the API. No API key or configuration is needed; every setting has a working default (see [Configuration](#configuration)).
+
+To run the browser tests too, install Chromium once with `npx playwright install chromium`, then run `npm run test:e2e`.
 
 Open http://localhost:5173. `npm run dev` starts the API on port 3001 and the Vite dev server on 5173, which proxies `/api` to the API. No API key or configuration is needed; every setting has a working default (see [Configuration](#configuration)).
 
