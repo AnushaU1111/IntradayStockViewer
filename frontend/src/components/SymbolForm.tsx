@@ -46,7 +46,7 @@ export function SymbolForm({ inputRef, error, onSubmit }: Props) {
           id="symbol"
           name="symbol"
           type="text"
-          placeholder="Symbol, for example TSLA"
+          placeholder="Symbol, like TSLA"
           autoComplete="off"
           autoCapitalize="characters"
           spellCheck={false}
@@ -64,7 +64,7 @@ export function SymbolForm({ inputRef, error, onSubmit }: Props) {
         </p>
       )}
       <p className="search-hint" id={hintId}>
-        Stocks, ETFs and indexes. Prices in the exchange&apos;s currency.
+        Prices are in the exchange&apos;s currency.
       </p>
     </form>
   );
