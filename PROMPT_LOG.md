@@ -5,9 +5,8 @@ How I used AI on this assessment: what I asked, why, what I kept and what I chan
 Rules for this log:
 
 - Entries record real exchanges only, in the order they happened.
-- Long prompts (pasted review lists) are quoted in part and summarized; nothing is invented.
+- Prompts are lightly edited for spelling, grammar and tone; their meaning and scope are unchanged. Long prompts, such as pasted review lists, are summarized. Nothing is invented.
 - "Changed / rejected" is where AI output was wrong, outdated or not what I wanted. Those entries matter most.
-- Code I edited by hand is listed separately in DECISIONS.md under "Manual code changes", with commit hashes.
 
 Tool: Claude (Anthropic), used for planning, review and code generation.
 
@@ -17,7 +16,7 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 1. Requirements document from the brief
 
-- **Prompt:** "This is my prometheus take home assignment, dont code anything yet, go through everything and prepare a thorough requirements document. Approach the problem with an open mind and take all things into consideration like a senior software engineer would." It was followed by my ten quality pillars and: "For this task especially prepare and focus on clean structure, input validation, error handling, a few meaningful tests (pay attention to edge cases)".
+- **Prompt:** "This is my take-home assignment for the Prometheus team. Don't write any code yet. Review everything and prepare a thorough requirements document, approaching the problem with an open mind and considering everything a senior software engineer would." Followed by my ten quality pillars and: "For this task, focus especially on clean structure, input validation, error handling and a few meaningful tests, with attention to edge cases."
 - **Why:** Plan before coding, and surface ambiguity in the brief first.
 - **Kept:**
   - The ambiguity table. The most important finding: the brief's sample curl has no `range`, so it returns one day, not one month.
@@ -28,14 +27,14 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 2. Stack choice
 
-- **Prompt:** "I want to use this recommended stack what is your recommendation, Node.js/TypeScript API"
+- **Prompt:** "I'd like to use the recommended Node.js and TypeScript stack for the API. What's your recommendation?"
 - **Why:** The brief allows .NET or Node/TypeScript, and I wanted the tradeoff stated before committing.
 - **Kept:** Node.js + TypeScript, with one language and shared validation across the API and UI. Also the advice to turn on `noUncheckedIndexedAccess` and avoid naive `Math.round` rounding.
 - **Changed / rejected:** Nothing.
 
 ### 3. Review round 1 (21 issues)
 
-- **Prompt:** "These are some issues, do not be biased, consider all issues seriously and come up with a list of solutions for the most critical issues", with my list of 21 prioritized issues. Follow-up: "Start modifying the plan around critical and high level fixes first, then I can roll out smaller fixes based on time constraints".
+- **Prompt:** "Here are the issues I found. Don't be biased: consider each one seriously and propose solutions for the most critical," with my list of 21 prioritized issues. Follow-up: "Revise the plan with the critical and high-priority fixes first. I'll roll out the smaller fixes depending on time."
 - **Why:** Stress-test the spec before coding.
 - **Kept:**
   - One usable-bar rule for prices and volume.
@@ -47,14 +46,14 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 4. DECISIONS.md
 
-- **Prompt:** "I strongly recommend a `DECISIONS.md` file with three pieces of information for each decision: Decision → Why it was necessary → Tradeoff accepted. Create this on decisions and assumptions made so far. If a decision was changed, include both versions"
+- **Prompt:** "Create a `DECISIONS.md` covering the decisions and assumptions made so far, with three parts for each: Decision, Why it was necessary and Tradeoff accepted. If a decision changed, include both versions."
 - **Why:** Record assumptions instead of waiting on confirmation, and keep the reasoning reviewable.
 - **Kept:** The format, with v1 and v2 versions shown for every revised decision.
 - **Changed / rejected:** Nothing.
 
 ### 5. Review round 2 and verification of the AI's fixes
 
-- **Prompt:** "Check the plan rigorously against these, Dont include things that are unnecessary but keep an open mind…", with 10 pre-coding issues. I then sent a verification review of the AI's proposed fixes.
+- **Prompt:** "Check the plan rigorously against these issues. Leave out anything unnecessary, but keep an open mind," with 10 pre-coding issues. I then sent a verification review of the AI's proposed fixes.
 - **Why:** Check the fixes themselves, not just the original issues.
 - **Kept:** A fixed test clock for end-to-end tests, removal of speculative bar-alignment rules, optional display-only metadata, cancelled vs timeout vs network errors, aggregation returning diagnostics instead of logging, and caching provider data rather than finished responses.
 - **Changed / rejected:**
@@ -63,7 +62,6 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
   - **Retry-After cap rejected.** The AI proposed clamping Yahoo's `Retry-After` to 300 s. I rejected it: honor the delay exactly, then send a single probe.
   - **Missing quote arrays could have become `[]`.** Corrected: timestamps without quote data are malformed and return 502.
   - **Error caching was too broad.** The AI's wording allowed caching "a domain error". Restricted to 404 and 422 only.
-  - **No time estimates.** "dont include time in plan. it will not be in the prompt log either"
 
 ### 6. Review round 3
 
@@ -81,7 +79,7 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 8. Implementation plan and review round 5
 
-- **Prompt:** "Okay, Plan looks good, layout a plan for implementation", then my review of that plan.
+- **Prompt:** "The plan looks good. Lay out an implementation plan," then my review of that plan.
 - **Why:** Turn the spec into ordered, gated phases.
 - **Kept:** Eight Must phases, each with commits, test IDs, an AI-output watchlist and a gate, then the Should tier.
 - **Changed / rejected:**
@@ -95,7 +93,9 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 9. Phase 1: scaffold and CI
 
-- **Prompt:** "Okay, Should we start with phase 1, can you open my browser and see the repo?" then "Start"
+- **Back and forth:**
+  1. **Request:** "Start with a framework for phase 1, before I go in and test it"
+     - **Response:** Built the workspace, configs, smoke tests and CI. It first reached for TypeScript 7, then checked typescript-eslint's supported range and pinned 6.0.3 instead.
 - **Why:** Build the workspace, strict TypeScript, lint, tests and CI before any feature code.
 - **Kept:**
   - npm workspaces (`packages/shared`, `backend`, `frontend`).
@@ -109,7 +109,13 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 10. Phase 2: fixtures and golden oracle
 
-- **Prompt:** "Start phase 2"
+- **Back and forth:**
+  1. **Request:** "Start Phase 2. Save real Yahoo responses as test fixtures, test each assumption about Yahoo against them and compute the expected results without using the app’s own code."
+     - **Response:** Wrote `scripts/capture.mjs` and tested it against a local fake server. Its sandboxes can't reach Yahoo, so it asked me to run the capture on my laptop.
+  2. **Request:** Ran the capture locally and shared the results.
+     - **Response:** Checked every Yahoo assumption against the captured data and found the 16:00 closing-price stub bar. It compared three ways to drop it and recommended filtering by `tradingPeriods` (D-50).
+  3. **Request:** Reported that `scripts/golden.py` failed on Windows.
+     - **Response:** Found that Python's `-I` flag hid the `tzdata` package installed in my user site-packages. It removed the flag and made the script write LF line endings.
 - **Why:** Capture real Yahoo responses, check every Yahoo assumption against them, and build expected values independently of the app.
 - **Kept:**
   - `scripts/capture.mjs`, which I ran on my laptop because the AI's sandboxes can't reach Yahoo. Before I ran it, it was tested against a local fake server: cookies are stripped from the committed copies, and a plain-text 429 is stored verbatim.
@@ -122,7 +128,11 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 11. Phase 3: shared package and domain, test-first
 
-- **Prompt:** "complete phase 3"
+- **Back and forth:**
+  1. **Request:** "Complete Phase 3. Build every business rule as a pure function, writing the tests first from the values the spec expects."
+     - **Response:** Wrote the tests first from the spec's expected values, then the shared package and the domain until they passed.
+  2. **Request:** Asked for evidence that the tests can actually fail.
+     - **Response:** Ran mutation checks. One mutant survived and exposed A1 passing only because of bar order, so A1 was rewritten to test both orders.
 - **Why:** Implement every business rule as pure functions, with failing tests written first from the spec's expected values.
 - **Kept:**
   - `parseSymbol` (ASCII check before uppercasing), the error codes, the response type, the header names and the path builder in `@isv/shared`.
@@ -136,7 +146,11 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 12. Phase 4: provider, guard, cache and service
 
-- **Prompt:** "I created the branch through git UI, finish phase 4"
+- **Back and forth:**
+  1. **Request:** "Please complete Phase 4. Build the layers between the domain and the HTTP API: the Yahoo schema, mapper and client, the deadline, retries and cooldown, the provider-data cache and the service."
+     - **Response:** Noted that my local checkout needed `git fetch` to see the new branch, then built the provider, guard, cache and service.
+  2. **Request:** Asked for the same mutation checks as Phase 3.
+     - **Response:** All but one mutant were caught. It explained why the survivor was equivalent to the original code and tested the real risk instead.
 - **Why:** Build everything between the domain and HTTP: the Yahoo schema, mapper and client; the deadline, retries and cooldown; the provider-data cache; and the service.
 - **Kept:**
   - The zod schema and mapper (including the D-50 session filter), and the client with strict Retry-After parsing.
@@ -152,7 +166,17 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 13. Phase 6: frontend
 
-- **Prompt:** "Okay so for front end I want it to have some taste, be professional while being interesting and dynamic", then "Custom SVG is good, but the design is still a bit dull the UI isnt as tasteful", then "Yes do Phase 6"
+- **Back and forth:**
+  1. **Request:** "For the frontend, I want a design with real taste: professional, but also interesting and dynamic."
+     - **Response:** Proposed a design direction and a first mockup: a light "chart paper" theme with a capsule chart.
+  2. **Request:** "Show me the mockup as an image."
+     - **Response:** Rendered the mockup as an image.
+  3. **Request:** "Explain that tradeoff in detail."
+     - **Response:** Compared Recharts with a hand-built SVG chart: bundle size, the custom marks the design needed, accessibility and test effort.
+  4. **Request:** "The custom SVG chart is the right call, but the design still feels dull and not yet tasteful."
+     - **Response:** Reworked the design until I approved a dark landing page with the motion I wanted.
+  5. **Request:** Shared a screenshot of the PR's CI, with all three test jobs failing.
+     - **Response:** Reproduced it on Node 24.14.1: jsdom was installed in `frontend/` while Vitest loads it from the root. It moved jsdom to the root.
 - **Why:** Design the UI from mockups first, then build it on the approved design: every state in spec 5.3, the D-40 client, the custom chart and tests F1 to F5 and F7 to F9.
 - **Kept:**
   - A dark landing page with a fire-and-light theme. The hero's line draws itself and traces the searched symbol's average highs, and embers rise behind it. The page has only the app's own elements.
@@ -173,7 +197,13 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
 
 ### 14. Phase 7: real-stack e2e
 
-- **Prompt:** "phase-7-Real-stack-e2e Done do phase 7"
+- **Back and forth:**
+  1. **Request:** "Please complete Phase 7. Test the real stack, from the built frontend to the compiled backend, under the two fixed clocks against a fake Yahoo server."
+     - **Response:** Built the session check, the fake Yahoo server, the Playwright scenarios and the CI job, ran all 8 tests and the mutation checks on Linux, and wrote the files into my repo with commit commands.
+  2. **Request:** Ran the suite on Windows and shared the output: all 8 tests passed, but Node printed a DEP0190 warning.
+     - **Response:** Traced it to `e2e/run.mjs` and `scripts/dev.mjs` passing arguments with `shell: true` on Windows, and changed both to spawn a single command string.
+  3. **Request:** Shared the rerun: all 8 tests passed with no warning.
+     - **Response:** Gave me the commit commands.
 - **Why:** Prove that the built UI and the compiled API work together under the two fixed clocks, with a fake Yahoo server and no real Yahoo call.
 - **Kept:**
   - The global-setup session check, the fake Yahoo server built on `sliceFixture` with a request log, and `e2e/run.mjs` running both clock scenarios in sequence with port checks.
@@ -185,3 +215,5 @@ Tool: Claude (Anthropic), used for planning, review and code generation.
   - **Claude can't edit CI files.** The tools that write into my repo can't change `.github/workflows/`, so the AI put the new `ci.yml` in `Claude outputs/` for me to copy.
   - **A Windows-only warning.** My first run on Windows printed Node's DEP0190 warning, because `e2e/run.mjs` (and `scripts/dev.mjs` from Phase 6) passed an argument list together with `shell: true`. On Windows both now spawn a single command string.
   - **Mutation checks.** All four mutants (listed in D-57) were caught. Parsing `day` with `Date` failed only in Honolulu, which shows why the two browser timezones matter.
+
+

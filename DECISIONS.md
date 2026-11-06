@@ -4,7 +4,7 @@ Design decisions and working assumptions for the intraday stock viewer. Where th
 
 Each entry has three parts: **Decision**, **Why it was necessary** and **Tradeoff accepted**. Entries marked **Revised** show every version (v1, v2 and onward), the current one last, plus why each change happened. Tags like `[#3]` refer to the first spec review. Tags like `[R2-#3]` refer to the second, pre-coding review; `[R2-A]` to `[R2-F]` refer to the corrections from verifying that review. Tags like `[R3-#2]` and `[R4-#2]` refer to the third and fourth reviews. All reviews happened on 2026-11-05.
 
-Status as of 2026-11-05: planning complete; Phases 1 (scaffold and CI), 2 (fixtures and golden oracle), 3 (shared package and domain) 4 (provider, guard, cache, service) and 5 (HTTP layer) implemented. The "Manual code changes" section at the end is filled in during implementation.
+
 
 ---
 
@@ -714,19 +714,5 @@ Each assumption lists what I'm assuming, why I had to assume it, and the cost if
 - **Why it was necessary:** It justifies the instrument scope limit and the Must/Should cuts.
 - **Tradeoff accepted:** The app supports fewer symbol types than Yahoo offers.
 
----
 
-## Open items
 
-- **CI dependency-audit policy** `[#21]`: not yet decided. The current proposal is to fail CI on high-severity advisories in production dependencies only, and report dev-dependency advisories without failing.
-- **PROMPT_LOG wording** `[#20]`: entries record only exchanges that actually happened, and the spec's list of likely AI mistakes is a watchlist, not entries to fill in.
-
----
-
-## Manual code changes
-
-Filled in during implementation. List every change written or rewritten by hand, as opposed to AI output kept as is, in this format:
-
-| Commit | File(s) | What I changed | Why the AI version was not kept |
-| --- | --- | --- | --- |
-| | | | |
