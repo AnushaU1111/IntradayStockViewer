@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+test-results/
+playwright-report/
+fixtures-raw/
+Claude outputs/
+DECISIONS.md
+PROMPT_LOG.md
