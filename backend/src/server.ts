@@ -1,16 +1,40 @@
 import { buildApp } from "./app.js";
+import { ConfigError, loadConfig, type AppConfig } from "./config/env.js";
 
-// Replaced by zod-validated config in Phase 5.
-const host = process.env.HOST ?? "0.0.0.0";
-const port = Number(process.env.PORT ?? "3001");
+const DRAIN_TIMEOUT_MS = 10_000;
 
-const app = buildApp({ logger: true });
-
-for (const signal of ["SIGINT", "SIGTERM"] as const) {
-  process.once(signal, () => {
-    app.log.info({ signal }, "shutting down");
-    void app.close().then(() => process.exit(0));
-  });
+function configOrExit(): AppConfig {
+  try {
+    return loadConfig(process.env);
+  } catch (err) {
+    if (err instanceof ConfigError) {
+      console.error(err.message);
+      process.exit(1);
+    }
+    throw err;
+  }
 }
 
-await app.listen({ host, port });
+const config = configOrExit();
+const app = await buildApp({ config });
+
+async function shutdown(signal: NodeJS.Signals): Promise<void> {
+  app.log.info({ signal }, "shutting down");
+  setTimeout(() => {
+    app.log.error("in-flight requests did not drain in time; exiting");
+    process.exit(1);
+  }, DRAIN_TIMEOUT_MS).unref();
+  await app.close();
+  process.exit(0);
+}
+
+for (const signal of ["SIGINT", "SIGTERM"] as const) {
+  process.once(signal, () => void shutdown(signal));
+}
+
+try {
+  await app.listen({ host: config.host, port: config.port });
+} catch (err) {
+  app.log.error({ err }, "failed to start");
+  process.exit(1);
+}

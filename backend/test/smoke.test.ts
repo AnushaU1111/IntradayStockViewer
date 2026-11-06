@@ -1,17 +1,20 @@
 import { afterEach, describe, expect, it } from "vitest";
 
+import type { FastifyInstance } from "fastify";
+
 import { API_VERSION } from "@isv/shared";
 
-import { buildApp } from "../src/app.js";
+import { testApp } from "./support/app.js";
 
 describe("backend smoke", () => {
-  const app = buildApp();
+  let app: FastifyInstance | undefined;
 
   afterEach(async () => {
-    await app.close();
+    await app?.close();
   });
 
   it("answers the liveness check", async () => {
+    app = await testApp();
     const res = await app.inject({ method: "GET", url: "/health/live" });
 
     expect(res.statusCode).toBe(200);
